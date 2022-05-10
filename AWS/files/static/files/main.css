@@ -17,13 +17,17 @@ body {
   }
   
   .site-header .navbar-nav .nav-link {
-    color: #cbd5db;
+    color: #000000;
   }
-  
+
   .site-header .navbar-nav .nav-link:hover {
     color: #ffffff;
   }
-  
+  .searchbutton{
+    margin-right: 50%;
+    background-color: #333;
+    padding: 20px 20px 20px 20px;
+  }
   .site-header .navbar-nav .nav-link.active {
     font-weight: 500;
   }

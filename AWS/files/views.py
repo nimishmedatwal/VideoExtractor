@@ -1,5 +1,3 @@
-import json
-from sys import stdout
 from django.http import HttpResponse
 from django.views.generic import CreateView
 from .models import Upload
@@ -112,34 +110,10 @@ def dynamoDB(request):
 def search(request):
     template = loader.get_template('./files/search.html')
     context = {}
-    params = retrieve_all_get_parameters(request)
-    srtfile = getsrt(params)
-    context = {
-      'srt' : srtfile
-    }
+    if request.method == "POST":
+        searchtext = request.POST.get('search')
+        print(searchtext)
     return HttpResponse(template.render(context, request))
 
-def retrieve_all_get_parameters(request):
 
-    param = {}
-    captions = request.GET.get('captions')
-  
-    if captions != None:
-        param['srt'] = captions
-
-    return param
-
-def getsrt(param):
-    try:
-        table = dynamodb.Table('table')
-    except :
-       
-        return 'failed'
-    else:
-        response = table.scan()
-        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
-            try:
-                item = response['Item']
-            except KeyError:
-                return None
-            return item
+    
